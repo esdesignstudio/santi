@@ -1,0 +1,24 @@
+<div class="o-single-products-relative-carousel">
+    <div class="o-single-products-relative-carousel__wrapper">
+        <div class="swiper-wrapper">
+            {% for item in data.carousel %}
+                <a
+                    class="o-single-products-relative-carousel__slide swiper-slide"
+                    href="{{ item.guid }}"
+                >
+                    <figure>
+                        <img src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+                    </figure>
+                    <h3 class="o-single-products-relative-carousel__slide-title -en">
+                        {{ item.name }}
+                    </h3>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% if data.carousel|length >= 4 %}
+    <div class="o-single-products-relative-carousel__btn">
+        <Icon :name="'right'"></Icon>
+    </div>
+    {% endif %}
+</div>

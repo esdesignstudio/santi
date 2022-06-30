@@ -1,0 +1,113 @@
+{% extends "base.twig" %}
+
+{# {% block style %}
+    {{ enqueue_style('single-projects') }}
+{% endblock %} #}
+
+{% block script %}
+    <script id="data-craft" type="application/javascript">
+        window.craftData = {
+            "singleProductsCarousel": {{ fields.top_carousel|json_encode|raw }}
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="single-projects" data-barba-namespace="single-projects">
+        <div class="single-projects__top container">
+            <div class="single-projects__top-location">
+                {{ fields.location }}
+            </div>
+            <h2 class="single-projects__top-title -en">
+                {{ seo.page_title }}
+            </h2>
+        </div>
+        <div class="single-projects__carousel">
+            {% include "components/organisms/single-projects-carousel.twig" with {
+                data: {
+                    carousel: fields.top_carousel,
+                }
+            } %}
+        </div>
+        <div class="single-projects__content container">
+            <div class="single-projects__content-wrapper">
+                <ul class="single-projects__left">
+                    <li class="single-projects__left-item">
+                        <div class="single-projects__left-item-title">
+                            面積
+                        </div>
+                        <div class="single-projects__left-item-text">
+                            {{ fields.area }}
+                        </div>
+                    </li>
+                    <li class="single-projects__left-item">
+                        <div class="single-projects__left-item-title">
+                            地點
+                        </div>
+                        <div class="single-projects__left-item-text">
+                            {{ fields.location }}
+                        </div>
+                    </li>
+                    <li class="single-projects__left-item">
+                        <div class="single-projects__left-item-title">
+                            設計公司
+                        </div>
+                        <div class="single-projects__left-item-text">
+                            {{ fields.design|nl2br }}
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="single-projects__content-wrapper">
+                {% for item in fields.content %}
+                    {% if item.acf_fc_layout == 'textarea' %}
+                        <p class="single-projects__content-textarea">
+                            {{ item.text }}
+                        </p>
+                    {% elseif item.acf_fc_layout == 'sibling' %}
+                        <div class="single-projects__content-sibling">
+                            <figure class="single-projects__content-sibling-img">
+                                <img src="{{ item.left.url }}" alt="{{ item.left.alt }}">
+                            </figure>
+                            <figure class="single-projects__content-sibling-img">
+                                <img src="{{ item.right.url }}" alt="{{ item.right.alt }}">
+                            </figure>
+                        </div>
+                    {% elseif item.acf_fc_layout == 'full' %}
+                        <div class="single-projects__content-full">
+                             <figure class="single-projects__content-sibling-img">
+                                <img src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+                            </figure>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="single-projects__products">
+            <div class="container">
+                <h2 class="single-projects__products-title">
+                    使用產品
+                </h2>
+                {% include "components/organisms/single-products-relative-carousel.twig" with {
+                    data: {
+                        carousel: products,
+                    }
+                } %}
+            </div>
+        </div>
+        {% if projects is not empty %}
+        <div class="single-projects__projects">
+            <div class="container">
+                <h2 class="single-projects__projects-title">
+                    相關案例
+                </h2>
+                {% include "components/organisms/single-products-projects-carousel.twig" with {
+                    data: {
+                        carousel: projects,
+                    }
+                } %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

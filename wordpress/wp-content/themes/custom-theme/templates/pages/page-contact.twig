@@ -1,0 +1,114 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="page-contact" data-barba-namespace="page-contact">
+        <div class="page-contact__wrapper container">
+            <div class="page-contact__title -en">
+                CONTACT US
+            </div>
+            <p class="page-contact__wrapper-sub">您的詢問清單</p>
+            <div class="page-contact__wrapper-content">
+                <form class="page-contact__form">
+                    <div class="page-contact__form-row">
+                        <div class="page-contact__form-row-item -half">
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="姓名"
+                                v-model="formData.name"
+                            >
+                        </div>
+                        <div class="page-contact__form-row-item -half">
+                            <input
+                                id="tel"
+                                name="tel"
+                                type="tel"
+                                placeholder="聯絡電話"
+                                v-model="formData.tel"
+                            >
+                        </div>
+                    </div>
+                    <div class="page-contact__form-row">
+                        <div class="page-contact__form-row-item -full">
+                            <label for="email">電子信箱</label>
+                            <input
+                                class="-white"
+                                id="email"
+                                name="email"                                
+                                type="text"
+                                placeholder="test@test.com.tw"
+                                v-model="formData.email"
+                            >
+                        </div>
+                    </div>
+                    <div class="page-contact__form-row">
+                        <div class="page-contact__form-row-item -full">
+                            <label for="company">公司名稱/個人</label>
+                            <input
+                                class="-white"
+                                id="company"
+                                name="company"                                
+                                type="text"
+                                placeholder="小明股份有限公司"
+                                v-model="formData.company"
+                            >
+                        </div>
+                    </div>
+                    <div class="page-contact__form-row">
+                        <div class="page-contact__form-row-item -full">
+                            <input
+                                id="city"
+                                name="city"
+                                type="text"
+                                placeholder="城市"
+                                v-model="formData.city"
+                            >
+                        </div>
+                    </div>
+                    <div class="page-contact__form-row">
+                        <div class="page-contact__form-row-item -full">
+                            <textarea
+                                id="summary"
+                                name="summary"
+                                type="text-area"
+                                placeholder="您需要什麼協助？"
+                                v-model="formData.summary"
+                            ></textarea>
+                        </div>
+                    </div>
+                    <div
+                        class="page-contact__form-submit"
+                        @click="submit"
+                        data-url="{{ admin_url }}"
+                    >
+                        傳送
+                    </div>
+                </form>
+                <div class="page-contact__empty {{ products is empty ? '-active' }}">
+                    <h2 class="page-contact__empty-tips">尚未加入任何產品</h2>
+                    <a href="/products" class="page-contact__empty-cta">
+                        逛逛產品
+                        <Icon :name="'single-arrow-right'"></Icon>
+                    </a>
+                </div>
+                <div class="page-contact__cart {{ products is not empty ? '-active' }}">
+                    {% for item in products %}
+                        <div class="page-contact__cart-product">
+                            <figure
+                                class="page-contact__cart-product-img"
+                                @click="removeProduct"
+                            >
+                                <img src="{{ item.image.url }}" alt="{{ item.image.alt }}" data-id="{{ item.id }}">
+                                <div class="page-contact__cart-product-cross"></div>
+                            </figure>
+                            <div class="page-contact__cart-product-title">
+                                <h3>{{ item.name }}</h3>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

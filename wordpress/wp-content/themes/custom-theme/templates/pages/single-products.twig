@@ -1,0 +1,177 @@
+{% extends "base.twig" %}
+
+{% block script %}
+    <script id="data-craft" type="application/javascript">
+        window.craftData = {
+            "singleProductsTopCarousel": {{ fields.carousel|json_encode|raw }}
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="single-produtcs" data-barba-namespace="single-products">
+        <div class="single-produtcs__carousel">
+            {% include "components/organisms/single-products-top-carousel.twig" with {
+                data: {
+                    carousel: fields.carousel,
+                }
+            } %}
+        </div>
+        <div class="single-produtcs__specifications container">
+            <div class="single-produtcs__specifications-wrapper">
+                <div
+                    class="single-produtcs__specifications-btn"
+                    @click="setCookie('{{ post.ID }}')"
+                >
+                    加入詢問清單
+                </div>
+            </div>
+            <div class="single-produtcs__specifications-wrapper">
+                <section class="single-produtcs__specifications-row">
+                    <div class="single-produtcs__specifications-row-title">
+                        <h2 class="single-produtcs__specifications-row-name -en">
+                            {{ seo.page_title }}
+                        </h2>
+                    </div>
+                    <div class="single-produtcs__specifications-row-content">
+                        <div class="single-produtcs__specifications-row-description">
+                            {{ fields.description }}
+                        </div>
+                    </div>
+                </section>
+                <section class="single-produtcs__specifications-row">
+                    <div class="single-produtcs__specifications-row-title">
+                        <h2>適用規格</h2>
+                    </div>
+                    <div class="single-produtcs__specifications-row-content">
+                        <div class="single-produtcs__specifications-specifications">
+                            {% for item in specifications %}
+                                <div class="single-produtcs__specifications-specifications-item">
+                                    <Icon :name="'{{ item.slug }}'"></Icon>
+                                    {{ item.name }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+                <section class="single-produtcs__specifications-row">
+                    <div class="single-produtcs__specifications-row-title">
+                        <h2>BOLON STUDIO™</h2>
+                    </div>
+                    <div class="single-produtcs__specifications-row-content">
+                        <div class="single-produtcs__specifications-specifications">
+                            {% for item in bolon_studio %}
+                                <div class="single-produtcs__specifications-specifications-item">
+                                    <Icon :name="'{{ item.slug }}'"></Icon>
+                                    {{ item.name }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+                <section class="single-produtcs__specifications-row">
+                    <div class="single-produtcs__specifications-row-title">
+                        <h2>產品資訊</h2>
+                    </div>
+                    <div class="single-produtcs__specifications-row-content" :class="{'-active': pageSetting.infomation}">
+                        <div class="single-produtcs__specifications-row-arrow" @click="pageSetting.infomation = !pageSetting.infomation">
+                            <Icon :name="'arrow-down'"></Icon>
+                        </div>
+                        <div class="single-produtcs__specifications-row-collapse">
+                            {% for item in fields.information %}
+                                <div class="single-produtcs__specifications-information">
+                                    <div class="single-produtcs__specifications-information-content">
+                                        {{ item.title }}
+                                    </div>
+                                    <div class="single-produtcs__specifications-information-content">
+                                        {{ item.content }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+                <section class="single-produtcs__specifications-row">
+                    <div class="single-produtcs__specifications-row-title">
+                        <h2>文件與檔案</h2>
+                    </div>
+                    <div class="single-produtcs__specifications-row-content" :class="{'-active': pageSetting.document}">
+                        <div class="single-produtcs__specifications-row-arrow" @click="pageSetting.document = !pageSetting.document">
+                            <Icon :name="'arrow-down'"></Icon>
+                        </div>
+                        <div class="single-produtcs__specifications-row-collapse">
+                            {% for item in fields.document %}
+                                <div class="single-produtcs__specifications-document">
+                                    {% if item.file %}
+                                        <a
+                                            class="single-produtcs__specifications-document-file"
+                                            href="{{ item.file.url }}"
+                                            target="_blank"
+                                            rel="noopener noreferer nofollow"
+                                        >
+                                            <Icon :name="'download'"></Icon>
+                                            {{ item.file.title }}
+                                        </a>
+                                    {% else %}
+                                        {{ item.text }}
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="single-produtcs__category">
+            <div class="single-produtcs__category-wrapper container">
+                <div class="single-produtcs__category-banner">
+                    <figure>
+                        <img
+                            src="{{ category.banner.url }}"
+                            alt="{{ category.banner.alt }}"
+                            data-scroll
+                            data-scroll-speed="-1"
+                        >
+                    </figure>
+                </div>
+                <div class="single-produtcs__category-content">
+                    <h2 class="single-produtcs__category-content-title">
+                        系列介紹
+                    </h2>
+                    <div class="single-produtcs__category-content-name">
+                        {{ category.name }}
+                    </div>
+                    <div class="single-produtcs__category-content-description">
+                        {{ category.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if projects is not empty %}
+        <div class="single-produtcs__projects">
+            <div class="container">
+                <h2 class="single-produtcs__projects-title">
+                    相關案例
+                </h2>
+                {% include "components/organisms/single-products-projects-carousel.twig" with {
+                    data: {
+                        carousel: projects,
+                    }
+                } %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="single-produtcs__relative">
+            <div class="container">
+                <h2 class="single-produtcs__relative-title">
+                    相關產品
+                </h2>
+                {% include "components/organisms/single-products-relative-carousel.twig" with {
+                    data: {
+                        carousel: products,
+                    }
+                } %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

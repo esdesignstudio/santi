@@ -1,0 +1,65 @@
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-enter-active {
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+.fade-leave-active {
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+
+.slide-up-enter-from {
+  -webkit-transform: translateY(100%);
+          transform: translateY(100%);
+}
+.slide-up-enter-to {
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
+}
+.slide-up-enter-active {
+  -webkit-transition: -webkit-transform 0.7s ease-in-out;
+  transition: -webkit-transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out, -webkit-transform 0.7s ease-in-out;
+}
+.slide-up-leave-to {
+  -webkit-transform: translateY(-100%);
+          transform: translateY(-100%);
+}
+.slide-up-leave-active {
+  -webkit-transition: -webkit-transform 0.7s ease-in-out;
+  transition: -webkit-transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out;
+  transition: transform 0.7s ease-in-out, -webkit-transform 0.7s ease-in-out;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.routein__1, .routein__2 {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 2rem, 0);
+          transform: translate3d(0, 2rem, 0);
+}
+.routein__1 {
+  -webkit-transition: all 0.7s 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.7s 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.routein__2 {
+  -webkit-transition: all 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.routein__3 {
+  -webkit-transition: all 1s 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 1s 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.isLoaded .routein__1, .isLoaded .routein__2, .isLoaded .routein__3 {
+  opacity: 1;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}/*# sourceMappingURL=vue-transition.css.map */

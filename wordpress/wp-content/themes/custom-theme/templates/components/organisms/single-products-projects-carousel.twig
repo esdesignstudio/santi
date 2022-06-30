@@ -1,0 +1,30 @@
+<div class="o-single-products-projects-carousel">
+    <div class="o-single-products-projects-carousel__progress">
+        <div class="o-single-products-projects-carousel__progress-bar"></div>
+    </div>
+    <div class="o-single-products-projects-carousel__wrapper">
+        <div class="swiper-wrapper">
+            {% for item in data.carousel %}
+                <a
+                    class="o-single-products-projects-carousel__slide swiper-slide"
+                    href="{{ item.guid }}"
+                >
+                    <figure>
+                        <img src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+                    </figure>
+                    <h3 class="o-single-products-projects-carousel__slide-title -en">
+                        {{ item.name }}
+                    </h3>
+                    <div class="o-single-products-projects-carousel__slide-location -en">
+                        {{ item.location }}
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% if data.carousel|length >= 4 %}
+    <div class="o-single-products-projects-carousel__btn">
+        <Icon :name="'right'"></Icon>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html class="no-js no-svg" {{ site.language_attributes }}>
+	<head>
+        {% include 'html-header.twig' %}
+        <style>
+            [v-cloak] {
+                display: none;
+            }
+        </style>
+        {{ enqueue_style('main') }}
+        {% block style %}{% endblock %}
+		{{ function('wp_head') }}
+	</head>
+	<body class="{{ body_class }}" data-template="base.twig" data-scroll-container>
+        {% include 'components/organisms/header.twig' %}
+        <h1 class="-seo">{{ seo.title }}</h1>
+        <div 
+            {# v-cloak #}
+            id="wrapper"
+            data-barba="wrapper"
+            :style="globalStyle"
+        >
+            <div data-barba="container">
+                <main class="o-layout" role="main">
+                    {% block content %}{% endblock %}
+                </main>
+            </div>
+        </div>
+        {% include 'components/organisms/footer.twig' %}
+        {{ enqueue_script('main') }}
+        {{ enqueue_script('vendors') }}
+        {{ enqueue_script('runtime') }}
+        {% block script %}{% endblock %}
+        {{ function('wp_footer') }}
+	</body>
+</html>

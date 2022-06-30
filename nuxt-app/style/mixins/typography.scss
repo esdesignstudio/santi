@@ -1,0 +1,235 @@
+$font-weight: (
+    light: 300,
+    normal: 400,
+    bold: 700
+);
+$font-family: (
+    default: #{
+        'Helvetica Neue',
+        'Helvetica',
+        'Noto Sans TC',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        'Microsoft YaHei UI',
+        Roboto,
+        sans-serif
+    },
+    en: #{
+        'Helvetica',
+        'Noto Sans TC',
+        'Microsoft YaHei UI',
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        'Helvetica Neue',
+        sans-serif
+    },
+);
+
+@mixin typo($lv, $type) {
+    @if $lv == 'display' {
+        @if $type == 1 {
+            font-size: 5.5vw;
+            font-family: map-get($font-family, default);
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 0;
+
+            body.language-en &, &.-en {
+                font-size: 70px;
+                font-family: map-get($font-family, en);
+                line-height: 84px;
+            }
+
+            @include media-breakpoint-down(tablet) {
+                body.language-en &, &.-en {
+                    font-size: 60px;
+                    line-height: 72px;
+                }
+            }
+        } @else {
+            @error '#{$type}：沒有這個type';
+        }
+    } @else if $lv == 'heading' {
+        @if $type == 1 {
+            font-size: 2.5rem;
+            font-weight: map-get($font-weight, normal);
+            line-height: 55px;
+            letter-spacing: 0;
+
+            body.language-en &, &.-en {
+                font-size: 3rem;
+                font-family: map-get($font-family, en);
+                line-height: normal;
+            }
+
+            @include media-breakpoint-down(tablet) {
+                font-size: 2.14rem;
+                line-height: 40px;
+            }
+        } @else if $type == 2 {
+            font-size: 2rem;
+            font-family: map-get($font-family, en);
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 0;
+        } @else if $type == 3 {
+            font-size: 1.5rem;
+            font-family: map-get($font-family, en);
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 0;
+
+            body.language-en &, &.-en {
+                font-size: 1.5rem;
+                font-family: map-get($font-family, en);
+                line-height: normal;
+            }
+        } @else if $type == 4 {
+            font-size: 1.125rem;
+            font-weight: map-get($font-weight, normal);
+            line-height: 31px;
+            letter-spacing: 0;
+
+            body.language-en &, &.-en {
+                font-size: 1.5rem;
+                font-family: map-get($font-family, en);
+                line-height: 40px;
+            }
+
+            @include media-breakpoint-down(tablet) {
+                font-size: 1.48rem;
+            }
+        } @else {
+            @error '#{$type}：沒有這個type';
+        }
+    } @else if $lv == 'body' {
+        @if $type == 1 {
+            font-size: 16px;
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 2px;
+
+            body.language-en &, &.-en {
+                font-size: 16px;
+                font-family: map-get($font-family, en);
+                line-height: normal;
+            }
+
+            @include media-breakpoint-down(tablet) {
+                font-size: 16px;
+
+                body.language-en &, &.-en {
+                    font-size: 16px;
+                }
+            }
+        } @else if $type == 2 {
+            font-size: 0.875rem;
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 0;
+        } @else if $type == 3 {
+            font-size: 0.75rem;
+            font-weight: map-get($font-weight, normal);
+            line-height: normal;
+            letter-spacing: 0;
+        } @else {
+            @error '#{$type}：沒有這個type';
+        }
+    }
+}
+
+@font-face {
+    font-family: 'fontello';
+    src: url('~/font/fontello.eot');
+    src: url('~/font/fontello.eot') format('embedded-opentype'),
+         url('~/font/fontello.woff2') format('woff2'),
+         url('~/font/fontello.woff') format('woff'),
+         url('~/font/fontello.ttf') format('truetype'),
+         url('~/font/fontello.svg#fontello') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "fontello";
+    font-style: normal;
+    font-weight: normal;
+    speak: never;
+  
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+  
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+  
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+  
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+  
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+  
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+  }
+
+  .icon-right-open-big:before { content: '\e800'; } /* '' */
+  .icon-left-open-big:before { content: '\e801'; } /* '' */
+  .icon-down-open-big:before { content: '\e802'; } /* '' */
+  .icon-up-open-big:before { content: '\e803'; } /* '' */
+  .icon-infinity:before { content: '\e804'; } /* '' */
+  .icon-play:before { content: '\e805'; } /* '' */
+  .icon-stop:before { content: '\e806'; } /* '' */
+  .icon-pause:before { content: '\e807'; } /* '' */
+  .icon-cus_arrow_b_down:before { content: '\e808'; } /* '' */
+  .icon-cus_arrow_b_left:before { content: '\e809'; } /* '' */
+  .icon-cus_arrow_b_right:before { content: '\e80a'; } /* '' */
+  .icon-cus_arrow_b_top:before { content: '\e80b'; } /* '' */
+  .icon-cus_arrow_bottom:before { content: '\e80c'; } /* '' */
+  .icon-cus_arrow_left:before { content: '\e80d'; } /* '' */
+  .icon-cus_arrow_right:before { content: '\e80e'; } /* '' */
+  .icon-cus_arrow_top:before { content: '\e80f'; } /* '' */
+  .icon-cus_cancel_circle:before { content: '\e810'; } /* '' */
+  .icon-cus_cancel:before { content: '\e811'; } /* '' */
+  .icon-cus_deco:before { content: '\e812'; } /* '' */
+  .icon-cus_diamond:before { content: '\e813'; } /* '' */
+  .icon-cus_download:before { content: '\e814'; } /* '' */
+  .icon-cus_filter:before { content: '\e815'; } /* '' */
+  .icon-cus_flag:before { content: '\e816'; } /* '' */
+  .icon-cus_hexagon:before { content: '\e817'; } /* '' */
+  .icon-cus_rolls:before { content: '\e818'; } /* '' */
+  .icon-cus_triangle:before { content: '\e819'; } /* '' */
+  .icon-cus_wave:before { content: '\e81a'; } /* '' */
+  .icon-cus_wing:before { content: '\e81b'; } /* '' */
+  .icon-cus_leaf:before { content: '\e81c'; } /* '' */
+  .icon-cus_line:before { content: '\e81d'; } /* '' */
+  .icon-cus_rectangle:before { content: '\e81e'; } /* '' */
+  .icon-cus_plank:before { content: '\e81e'; } /* '' */
+  .icon-cus_strip:before { content: '\e81e'; } /* '' */
+  .icon-cus_scale:before { content: '\e81f'; } /* '' */
+  .icon-cus_acoustic50x50tile:before { content: '\e820'; } /* '' */
+  .icon-cus_50x50tile:before { content: '\e821'; } /* '' */
+  .icon-cus_square:before { content: '\e821'; } /* '' */
+  .icon-search:before { content: '\e822'; } /* '' */
+  .icon-phone:before { content: '\e824'; } /* '' */
+  .icon-location:before { content: '\e825'; } /* '' */
+  .icon-mail-alt:before { content: '\f0e0'; } /* '' */
+  .icon-fax:before { content: '\f1ac'; } /* '' */
+  .icon-twitter:before { content: '\f309'; } /* '' */
+  .icon-facebook:before { content: '\f30c'; } /* '' */
+  .icon-linkedin:before { content: '\f318'; } /* '' */

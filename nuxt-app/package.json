@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build --port=4001",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview"
+  },
+  "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.1",
+    "nuxt": "3.0.0-rc.3",
+    "sass": "^1.52.1",
+    "sass-loader": "^13.0.0",
+    "stylelint": "^14.8.3",
+    "svg-sprite-loader": "^6.0.11"
+  },
+  "dependencies": {
+    "@nuxtjs/stylelint-module": "^4.1.0",
+    "@vee-validate/rules": "^4.5.11",
+    "detect-browser": "^5.3.0",
+    "gsap": "^3.10.4",
+    "jquery": "^3.6.0",
+    "locomotive-scroll": "^4.1.4",
+    "swiper": "^8.1.5",
+    "vee-validate": "^4.5.11",
+    "yup": "^0.32.11"
+  }
+}

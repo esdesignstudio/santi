@@ -1,0 +1,54 @@
+<footer
+    class="o-footer container"
+    data-scroll
+    data-scroll-class="-show"
+>
+    <div class="o-footer__wrapper">
+        <div class="o-footer__content col-10">
+            <div class="o-footer__content-top">
+                <img src="{{ require_assets('img/footer-logo.svg') }}">
+            </div>
+            <div class="o-footer__content-bottom">
+                <h2 class="o-footer__content-bottom-location">
+                    臺灣
+                </h2>
+                <div class="o-footer__content-bottom-info">
+                    <ul>
+                        <li>{{ global_options.address }}</li>
+                        <li>
+                            <span>M</span>
+                            {{ global_options.mail }}
+                        </li>
+                    </ul>
+                    <ul>
+                        <li>
+                            <span>T</span>
+                            {{ global_options.tax }}
+                        </li>
+                        <li>
+                            <span>F</span>
+                            {{ global_options.phone }}
+                        </li>
+                    </ul>
+                    <div class="o-footer__content-bottom-social">
+                        <a href="{{ global_options.facebook }}" target="_blank" rel="noopener noreferer nofollow" class="o-footer__content-bottom-social-icon">
+                            <img src="{{ require_assets('img/facebook.svg') }}">
+                        </a>
+                        <a href="{{ global_options.facebook }}" target="_blank" rel="noopener noreferer nofollow" class="o-footer__content-bottom-social-icon">
+                            <img src="{{ require_assets('img/line.svg') }}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="o-footer__content-copyright">
+                <a href="/">
+                    隱私權政策
+                </a>
+                <a href="/">
+                    細則與條款
+                </a>
+                <p>{{ global_options.copyright }}</p>
+            </div>
+        </div>
+    </div>
+</footer>

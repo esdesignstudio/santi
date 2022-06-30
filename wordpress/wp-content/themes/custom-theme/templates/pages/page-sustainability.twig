@@ -1,0 +1,42 @@
+{% extends "base.twig" %}
+
+{% block content %}
+    <div class="page-sustainability" data-barba-namespace="page-sustainability">
+        {% include "components/organisms/page-banner.twig" with {
+            data: {
+                short: true,
+                left: fields.top_banner.left,
+                right: fields.top_banner.right,
+                title: '永續發展',
+                title_en: 'SUSTAINABILITY',
+            }
+        } %}
+        <div class="page-sustainability__content">
+            {% include "components/organisms/page-nav.twig" with {
+                data: {
+                    nav: [
+                        {
+                            name: '材料&塑料',
+                            key: 'material',
+                        }, {
+                            name: '氣候',
+                            key: 'climate',
+                        }, {
+                            name: '化學',
+                            key: 'chemical',
+                        }, {
+                            name: '證書',
+                            key: 'certificate',
+                        }
+                    ]
+                }
+            } %}
+            <div
+                class="page-sustainability__certificate"
+                v-show="navKey === 'certificate'"
+            >
+                123
+            </div>
+        </div>
+    </div>
+{% endblock %}

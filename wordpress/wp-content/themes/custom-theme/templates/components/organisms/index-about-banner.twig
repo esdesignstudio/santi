@@ -1,0 +1,27 @@
+<div class="o-index-about-banner">
+    <figure>
+        <img
+            src="{{ data.data.image.url }}"
+            alt="{{ data.data.image.alt }}"
+            data-scroll
+            data-scroll-speed="-1"
+        >
+    </figure>
+    <div class="o-index-about-banner__content">
+        <div class="o-index-about-banner__content-wrapper container">
+            <div class="o-index-about-banner__content-wrapper-title">
+                {{ data.data.title }}
+            </div>
+            <div class="o-index-about-banner__content-wrapper-text">
+                {{ data.data.text|nl2br }}
+            </div>
+            <a
+                class="o-index-about-banner__content-wrapper-btn"
+                href="{{ data.data.link.url }}"
+            >
+                <span>了解</span>
+                <Icon :name="'single-arrow-right'"></Icon>
+            </a>
+        </div>
+    </div>
+</div>

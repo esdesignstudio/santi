@@ -1,0 +1,529 @@
+{% extends "index.twig" %}
+
+{% block content %}
+    <div class="archive-projects" data-barba-namespace="archive-projects">
+        {% include "components/organisms/page-banner.twig" with {
+            data: {
+                left: fields.top_banner.left,
+                right: fields.top_banner.right,
+                title: '產品案例',
+                title_en: 'PROJECTS',
+            }
+        } %}
+        <div class="archive-projects__content">
+            <div class="container">
+                <div class="archive-projects__panel" data-url="{{admin_url}}">
+                    <div class="archive-projects__panel-search">
+                        <input class="search-panel__search-input" id="search" type="text" name="search" placeholder="輸入關鍵字" @keyup.enter="filter()">
+                        <button @click="filter()">
+                            <Icon :name="'search'"></Icon>
+                        </button>
+                    </div>
+                    <div class="archive-projects__panel-filter">
+                        <div class="archive-projects__panel-filter-top">
+                            <div class="archive-projects__color">
+                                <div class="archive-projects__color-title">
+                                    顏色
+                                </div>
+                                <div
+                                    class="archive-projects__color-item -all"
+                                    @click="term.color = [], updateUrl()"
+                                    :class="term.color[0] ? '' : '-active'"
+                                >
+                                    <Icon :name="'check'"></Icon>
+                                </div>
+                                {% for item in taxonomies.color %}
+                                    <div
+                                        class="archive-projects__color-item"
+                                        style="background:{{ item.hex }}"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.color.includes({{ item.term_id }})}"
+                                    >
+                                        <Icon :name="'check'"></Icon>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="archive-projects__panel-filter-mid">
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category !='category' ? category = 'category' : category = ''"
+                                :class="{'-active': category ==='category'}"
+                            >
+                                系列
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category != 'products' ? category = 'products' : category = ''"
+                                :class="{'-active': category ==='products'}"
+                            >
+                                產品
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category != 'specifications' ? category = 'specifications' : category = ''"
+                                :class="{'-active': category ==='specifications'}"
+                            >
+                                規格
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category != 'space' ? category = 'space' : category = ''"
+                                :class="{'-active': category ==='space'}"
+                            >
+                                空間類型
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category != 'nation' ? category = 'nation' : category = ''"
+                                :class="{'-active': category ==='nation'}"
+                            >
+                                國家
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-projects__panel-filter-dropdown"
+                                @click="category != 'area' ? category = 'area' : category = ''"
+                                :class="{'-active': category ==='area'}"
+                            >
+                                面積
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                        </div>
+                        <div class="archive-projects__panel-filter-option">
+                            <div
+                                class="archive-projects__category"
+                                v-show="category === 'category' "
+                            >
+                                {% for item in taxonomies.category %}
+                                    <div
+                                        class="archive-projects__category-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.category.includes({{ item.term_id }})}"
+                                    >
+                                        <div class="archive-projects__category-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-projects__category"
+                                v-show="category === 'products' "
+                            >
+                                {% for item in products_posts %}
+                                    <div
+                                        class="archive-projects__category-item -en"
+                                        @click="filter('products', {{ item.product_id }})"
+                                        :class="{'-active': term.products.includes({{ item.product_id }})}"
+                                        v-show="term.category[0] ? term.category.includes({{ item.term_id[0] }}) : true"
+                                    >
+                                        <div class="archive-projects__category-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-projects__specifications"
+                                v-show="category === 'specifications' "
+                            >
+                                {% for item in taxonomies.specifications %}
+                                    <div
+                                        class="archive-projects__specifications-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.specifications.includes({{ item.term_id }})}"
+                                    >
+                                        <Icon :name="'{{ item.slug }}'"></Icon>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.bolon_studio %}
+                                    <div
+                                        class="archive-projects__specifications-item"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.bolon_studio.includes({{ item.term_id }})}"
+                                    >
+                                        <Icon :name="'{{ item.slug }}'"></Icon>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-projects__space"
+                                v-show="category === 'space' "
+                            >
+                                {% for item in taxonomies.space %}
+                                    <div
+                                        class="archive-projects__space-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.space.includes({{ item.term_id }})}"
+                                    >
+                                        <div class="archive-projects__space-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-projects__nation"
+                                v-show="category === 'nation' "
+                            >
+                                {% for item in taxonomies.nation %}
+                                    <div
+                                        class="archive-projects__nation-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.nation.includes({{ item.term_id }})}"
+                                    >
+                                        <div class="archive-projects__nation-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-projects__area"
+                                v-show="category === 'area' "
+                            >
+                                {% for item in taxonomies.area %}
+                                    <div
+                                        class="archive-projects__area-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.area.includes({{ item.term_id }})}"
+                                    >
+                                        <div class="archive-projects__area-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="archive-projects__selected">
+                            <div class="archive-projects__selected-top">
+                                <p>您已選擇</p>
+                                <div
+                                    class="archive-projects__selected-top-clean"
+                                    @click="{term.category = [];term.color = [];term.specifications = [];term.bolon_studio = [];term.space = [];term.nation = [];term.area = []; updateUrl()}"
+                                >
+                                    <div class="archive-projects__selected-top-cross"></div>
+                                    清除選項
+                                </div>
+                            </div>
+                            <div class="archive-projects__selected-wrapper">
+                                {% for item in taxonomies.category %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.category.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.color %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.color.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.specifications %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.specifications.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.bolon_studio %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.bolon_studio.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.space %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.space.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.nation %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.nation.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.area %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.area.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in products_posts %}
+                                    <div
+                                        class="archive-projects__selected-wrapper-item"
+                                        v-show="term.products.includes({{ item.product_id }})"
+                                        @click="filter('products', {{ item.product_id }})"
+                                        :class="{'-active': term.products.includes({{ item.product_id }})}"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-projects__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="archive-projects__main">
+                <div class="archive-projects__main-layout">
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.office.image.left.url }}" alt="{{ fields.office.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.office.image.right.url }}" alt="{{ fields.office.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.office.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 28)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.office.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.office.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.office.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.office.image.bottom.url }}" alt="{{ fields.office.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.hotel.image.left.url }}" alt="{{ fields.hotel.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.hotel.image.right.url }}" alt="{{ fields.hotel.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.hotel.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 29)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.hotel.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.hotel.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.hotel.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.hotel.image.bottom.url }}" alt="{{ fields.hotel.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.school.image.left.url }}" alt="{{ fields.school.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.school.image.right.url }}" alt="{{ fields.school.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.school.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 30)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.school.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.school.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.school.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.school.image.bottom.url }}" alt="{{ fields.school.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.shop.image.left.url }}" alt="{{ fields.shop.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.shop.image.right.url }}" alt="{{ fields.shop.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.shop.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 31)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.shop.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.shop.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.shop.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.shop.image.bottom.url }}" alt="{{ fields.shop.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.hospital.image.left.url }}" alt="{{ fields.hospital.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.hospital.image.right.url }}" alt="{{ fields.hospital.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.hospital.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 32)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.hospital.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.hospital.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.hospital.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.hospital.image.bottom.url }}" alt="{{ fields.hospital.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                    <section>
+                        <div class="archive-projects__main-top">
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.other.image.left.url }}" alt="{{ fields.other.image.left.alt }}">
+                            </figure>
+                            <figure class="archive-projects__main-top-img">
+                                <img src="{{ fields.other.image.right.url }}" alt="{{ fields.other.image.right.alt }}">
+                            </figure>
+                            <div class="archive-projects__main-top-content">
+                                <div class="archive-projects__main-top-content-title">
+                                    {{ fields.other.title }}
+                                    <div
+                                        class="archive-projects__main-top-content-btn"
+                                        @click="filter('space', 33)"
+                                    >
+                                        <Icon :name="'arrow-right'"></Icon>
+                                    </div>
+                                </div>
+                                <div class="archive-projects__main-top-content-description">
+                                    {{ fields.other.description }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="archive-projects__main-bottom">
+                            <div class="archive-projects__main-bottom-content">
+                                <div class="archive-projects__main-bottom-content-en -en">
+                                    {{ fields.other.location_en }}
+                                </div>
+                                <div class="archive-projects__main-bottom-content-zh">
+                                    {{ fields.other.location }}
+                                </div>
+                            </div>
+                            <figure class="archive-projects__main-bottom-img">
+                                <img src="{{ fields.other.image.bottom.url }}" alt="{{ fields.other.image.bottom.alt }}">
+                            </figure>
+                        </div>
+                    </section>
+                </div>
+                <div class="archive-projects__main-projects container">
+                
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

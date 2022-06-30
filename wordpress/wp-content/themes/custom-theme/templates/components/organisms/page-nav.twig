@@ -1,0 +1,12 @@
+<div class="o-page-nav">
+    <ul class="o-page-nav__wrapper container">
+        {% for item in data.nav %}
+            <li
+                :class="{'-active': navKey ==='{{ item.key }}'}"
+                @click="navKey = '{{ item.key }}'"
+            >
+                {{ item.name }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>   

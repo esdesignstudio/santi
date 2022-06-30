@@ -1,0 +1,281 @@
+{% extends "index.twig" %}
+
+{% block content %}
+    <div class="archive-products" data-barba-namespace="archive-products">
+        {% include "components/organisms/page-banner.twig" with {
+            data: {
+                left: fields.top_banner.left,
+                right: fields.top_banner.right,
+                title: '系列產品',
+                title_en: 'PRODUCTS',
+            }
+        } %}
+        <div class="archive-products__content">
+            <div class="container">
+                <div class="archive-products__panel" data-url="{{admin_url}}">
+                    <div class="archive-products__panel-search">
+                        <input class="search-panel__search-input" id="search" type="text" name="search" placeholder="輸入關鍵字" @keyup.enter="filter()">
+                        <button @click="filter()">
+                            <Icon :name="'search'"></Icon>
+                        </button>
+                    </div>
+                    <div class="archive-products__panel-filter">
+                        <div class="archive-products__panel-filter-top">
+                            <div
+                                class="archive-products__panel-filter-dropdown"
+                                @click="category !='category' ? category = 'category' : category = ''"
+                                :class="{'-active': category ==='category'}"
+                            >
+                                系列
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-products__panel-filter-dropdown"
+                                @click="category != 'color' ? category = 'color' : category = ''"
+                                :class="{'-active': category ==='color'}"
+                            >
+                                顏色
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-products__panel-filter-dropdown"
+                                @click="category != 'specifications' ? category = 'specifications' : category = ''"
+                                :class="{'-active': category ==='specifications'}"
+                            >
+                                規格
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                            <div
+                                class="archive-products__panel-filter-dropdown"
+                                @click="category != 'space' ? category = 'space' : category = ''"
+                                :class="{'-active': category ==='space'}"
+                            >
+                                適用區域
+                                <Icon :name="'arrow-down'"></Icon>
+                            </div>
+                        </div>
+                        <div
+                            class="archive-products__panel-filter-mid"
+                        >
+                            <div
+                                class="archive-products__category"
+                                v-show="category === 'category' "
+                            >
+                                <div
+                                    class="archive-products__category-item -en"
+                                    @click="term.category = [], updateUrl()"
+                                    :class="term.category[0] ? '' : '-active'"
+                                >
+                                    <div class="archive-products__category-item-box"></div>
+                                    ALL
+                                </div>
+                                {% for item in taxonomies.category %}
+                                    <div
+                                        class="archive-products__category-item -en"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.category.includes({{ item.term_id }})}"
+                                    >
+                                        <div class="archive-products__category-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-products__color"
+                                v-show="category === 'color' "
+                            >
+                                <div
+                                    class="archive-products__color-item -all"
+                                    @click="term.color = [], updateUrl()"
+                                    :class="term.color[0] ? '' : '-active'"
+                                >
+                                    <Icon :name="'check'"></Icon>
+                                </div>
+                                {% for item in taxonomies.color %}
+                                    <div
+                                        class="archive-products__color-item"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.color.includes({{ item.term_id }})}"
+                                        style="background:{{ item.hex }}"
+                                    >
+                                        <Icon :name="'check'"></Icon>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-products__specifications"
+                                v-show="category === 'specifications' "
+                            >
+                                <div
+                                    class="archive-products__specifications-item -all -en"
+                                    @click="term.specifications = [], term.bolon_studio = [], updateUrl()"
+                                    :class="term.specifications[0] || term.bolon_studio[0] ? '' : '-active'"
+                                >
+                                    <div class="archive-products__specifications-item-box"></div>
+                                    ALL
+                                </div>
+                                {% for item in taxonomies.specifications %}
+                                    <div
+                                        class="archive-products__specifications-item"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.specifications.includes({{ item.term_id }})}"
+                                        style="background:{{ item.hex }}"
+                                    >
+                                        <Icon :name="'{{ item.slug }}'"></Icon>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.bolon_studio %}
+                                    <div
+                                        class="archive-products__specifications-item"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.bolon_studio.includes({{ item.term_id }})}"
+                                        style="background:{{ item.hex }}"
+                                    >
+                                        <Icon :name="'{{ item.slug }}'"></Icon>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div
+                                class="archive-products__space"
+                                v-show="category === 'space' "
+                            >
+                                <div
+                                    class="archive-products__space-item -all -en"
+                                    @click="term.space = [], updateUrl()"
+                                    :class="term.space[0] ? '' : '-active'"
+                                >
+                                    <div class="archive-products__space-item-box"></div>
+                                    ALL
+                                </div>
+                                {% for item in taxonomies.space %}
+                                    <div
+                                        class="archive-products__space-item"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                        :class="{'-active': term.space.includes({{ item.term_id }})}"
+                                        style="background:{{ item.hex }}"
+                                    >
+                                        <div class="archive-products__space-item-box"></div>
+                                        {{ item.name }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="archive-products__selected">
+                            <div class="archive-products__selected-top">
+                                <p>您已選擇</p>
+                                <div
+                                    class="archive-products__selected-top-clean"
+                                    @click="{term.category = [];term.color = [];term.specifications = [];term.bolon_studio = [];term.space = []; updateUrl()}"
+                                >
+                                    <div class="archive-products__selected-top-cross"></div>
+                                    清除選項
+                                </div>
+                            </div>
+                            <div class="archive-products__selected-wrapper">
+                                {% for item in taxonomies.category %}
+                                    <div
+                                        class="archive-products__selected-wrapper-item"
+                                        v-show="term.category.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-products__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.color %}
+                                    <div
+                                        class="archive-products__selected-wrapper-item"
+                                        v-show="term.color.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-products__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.specifications %}
+                                    <div
+                                        class="archive-products__selected-wrapper-item"
+                                        v-show="term.specifications.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-products__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.bolon_studio %}
+                                    <div
+                                        class="archive-products__selected-wrapper-item"
+                                        v-show="term.bolon_studio.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-products__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                                {% for item in taxonomies.space %}
+                                    <div
+                                        class="archive-products__selected-wrapper-item"
+                                        v-show="term.space.includes({{ item.term_id }})"
+                                        @click="filter('{{ item.taxonomy }}', {{ item.term_id }})"
+                                    >
+                                        {{ item.name }}
+                                        <div class="archive-products__selected-wrapper-cross"></div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="archive-products__sort"
+                    :class="{'-active':sortToggle}"
+                    @click="sortToggle = !sortToggle"
+                >
+                    <Icon
+                        class="archive-products__sort-icon"
+                        :name="'sort'"
+                    ></Icon>
+                    <p>排序方式</p>
+                    <Icon
+                        :name="'arrow-down'"
+                        class="archive-products__sort-arrow"
+                    ></Icon>
+                    <ul class="archive-products__sort-option">
+                        <li @click="sort('new')">最新上架</li>
+                        <li @click="sort('category')">系列</li>
+                        <li @click="sort('color')">顏色</li>
+                    </ul>
+                </div>
+                <div class="archive-products__products">
+                    <div class="archive-products__products-wrapper">
+                        {% for post in products_posts %}
+                            <a
+                                class="archive-products__products-product"
+                                href="{{ post.guid }}"
+                            >
+                                <figure class="archive-products__products-product-img">
+                                    <img src="{{ post.image.url }}" alt="{{ post.image.alt }}">
+                                    {% if post.new == true %}
+                                        <div class="archive-products__products-product-new">
+                                            <p>NEW</p>
+                                        </div>
+                                    {% endif %}
+                                    <div class="archive-products__products-product-dev">
+                                        <div>{{ post.product_id }}</div><br>
+                                        {% for item in post.categories %}<div>{{ item }}</div>{% endfor %} <br>
+                                        {% for item in post.specifications %}<div>{{ item.name }}</div>{% endfor %} <br>
+                                        {% for item in post.color %}<div style="color:{{item.slug}}">{{ item.name }}</div>{% endfor %} <br>
+                                        {% for item in post.space %}<div>{{ item.name }}</div>{% endfor %} <br>
+                                    </div>
+                                </figure>
+                                <h3 class="archive-products__products-product-title">{{ post.name }}</h3>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+{% endblock %}

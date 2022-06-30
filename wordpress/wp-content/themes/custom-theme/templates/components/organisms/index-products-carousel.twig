@@ -1,0 +1,79 @@
+<div
+    class="o-index-products-carousel"
+    ref="ProductsCarouselRef"
+>
+        <div class="o-index-products-carousel__slide">
+            <div class="o-index-products-carousel__slide-left">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="productsSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.image.left.url }}"
+                            alt="{{ item.image.left.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+            <div class="o-index-products-carousel__slide-right -right">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="productsSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.image.right.url }}"
+                            alt="{{ item.image.right.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="o-index-products-carousel__content">
+            <div class="o-index-products-carousel__content-wrapper">
+                <a 
+                    class="o-index-products-carousel__content-wrapper-title -en"
+                    :href="indexProductsCarousel.data[indexProductsCarousel.id].guid"
+                >
+                    <div class="o-index-products-carousel__content-wrapper-title-wrapper">
+                        <Transition
+                            name="slide-up"
+                            appear
+                            mode="out-in"
+                        >
+                            <div
+                                :key="indexProductsCarousel.id"
+                                v-text="indexProductsCarousel.data[indexProductsCarousel.id].title"
+                            ></div>
+                        </Transition>
+                    </div>
+                    <div class="o-index-products-carousel__content-wrapper-title-wrapper">
+                        <Transition
+                            name="slide-up"
+                            appear
+                            mode="out-in"
+                        >
+                            <Icon
+                                :name="'single-arrow-right'"
+                                :key="indexProductsCarousel.id"
+                            ></Icon>
+                        </Transition>
+                    </div>
+                    
+                </a>
+            </div>
+        </div>
+        <div class="o-index-products-carousel__progress">
+            <div class="o-index-products-carousel__progress-bar">
+                <div
+                    ref="ProductsCarouselProgress"
+                    class="o-index-products-carousel__progress-bar-progress"
+                ></div>
+            </div>
+        </div>
+        <div
+            class="o-index-products-carousel__btn"
+            @click="productsNext();productsResetTimer()"
+        >
+            <Icon :name="'arrow-right'" />
+        </div>
+    </div>

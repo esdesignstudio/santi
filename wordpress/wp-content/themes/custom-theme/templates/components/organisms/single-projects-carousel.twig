@@ -1,0 +1,45 @@
+<div
+    class="o-single-projects-carousel"
+    ref="ProductsCarouselRef"
+>
+        <div class="o-single-projects-carousel__slide">
+            <div class="o-single-projects-carousel__slide-left">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="productsSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.left_image.url }}"
+                            alt="{{ item.left_image.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+            <div class="o-single-projects-carousel__slide-right -right">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="productsSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.right_image.url }}"
+                            alt="{{ item.right_image.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="o-single-projects-carousel__progress container">
+            <div class="o-single-projects-carousel__progress-bar">
+                <div
+                    ref="ProductsCarouselProgress"
+                    class="o-single-projects-carousel__progress-bar-progress"
+                ></div>
+            </div>
+        </div>
+        <div
+            class="o-single-projects-carousel__btn"
+            @click="productsNext();productsResetTimer()"
+        >
+            <Icon :name="'arrow-right'" />
+        </div>
+    </div>

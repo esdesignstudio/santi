@@ -1,0 +1,125 @@
+{% extends "base.twig" %}
+
+{% block script %}
+    <script id="data-craft" type="application/javascript">
+        window.craftData = {
+            "indexCarousel": {{ fields.top_carousel|json_encode|raw }},
+            "featuresCarousel": {{ features_posts|json_encode|raw }},
+            "indexProductsCarousel": {{ products_posts|json_encode|raw }}
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="page-index" data-barba-namespace="page-index">
+        {% include "components/organisms/index-carousel.twig" with {
+            data: {
+                carousel: fields.top_carousel,
+            }
+        } %}
+        <div class="page-index__content">
+            <div class="page-index__banner container">
+                <div
+                    class="page-index__banner-title"
+                    data-scroll
+                    data-scroll-class="-show"
+                >
+                    {% include "components/atoms/split-title.twig" with {
+                        data: {
+                            title: fields.banner.title|split(',') ,
+                            tag: 'h2',
+                        }
+                    } %}
+                </div>
+                <div class="page-index__banner-img">
+                    <figure>
+                        <img
+                            src="{{ fields.banner.image.url }}"
+                            alt="{{ fields.banner.image.alt }}"
+                            data-scroll
+                            data-scroll-speed="-1"
+                        >
+                    </figure>
+                </div>
+            </div>
+            <div class="page-index__feature">
+                <div class="page-index__feature-wrapper container">
+                    <div
+                        class="page-index__feature-title"
+                        data-scroll
+                        data-scroll-class="-show"
+                    >
+                        <div class="page-index__feature-title-wrapper">
+                            {% include "components/atoms/split-title.twig" with {
+                                data: {
+                                    title: ['精選案例'] ,
+                                    tag: 'h2',
+                                }
+                            } %}
+                            <a
+                                class="page-index__feature-title-btn"
+                                href="/projects"
+                            >
+                                <span>了解更多</span>
+                                <Icon :name="'single-arrow-right'"></Icon>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% include "components/organisms/features-carousel.twig" with {
+                    data: {
+                        carousel: features_posts,
+                    }
+                } %}
+            </div>
+            <div class="page-index__fix" id="fix">
+                <figure class="page-index__fix-img">
+                    <img src="{{ fields.fix_banner.image.url }}" alt="{{ fields.fix_banner.image.alt }}">
+                </figure>
+                <div class="page-index__fix-title -en">
+                    {{ fields.fix_banner.title|nl2br }}
+                </div>
+            </div>
+            <div class="page-index__products container">
+                <div
+                    class="page-index__products-title"
+                    data-scroll
+                    data-scroll-class="-show"
+                >
+                    <div class="page-index__products-title-wrapper">
+                        {% include "components/atoms/split-title.twig" with {
+                            data: {
+                                title: ['產品'] ,
+                                tag: 'h2',
+                            }
+                        } %}
+                        <a
+                            class="page-index__products-title-btn"
+                            href="/projects"
+                        >
+                            <span>更多產品</span>
+                            <Icon :name="'single-arrow-right'"></Icon>
+                        </a>
+                    </div>
+                </div>
+                {% include "components/organisms/index-products-carousel.twig" with {
+                    data: {
+                        carousel: products_posts,
+                    }
+                } %}
+            </div>
+            <div class="page-index__about container">
+                {% include "components/organisms/index-about-banner.twig" with {
+                    data: {
+                        data: fields.about.top_banner,
+                    }
+                } %}
+                {% include "components/organisms/index-about-banner.twig" with {
+                    data: {
+                        data: fields.about.bottom_banner,
+                    }
+                } %}
+            </div>
+        </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,261 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "fontello";
+  src: url("~/font/fontello.eot");
+  src: url("~/font/fontello.eot") format("embedded-opentype"), url("~/font/fontello.woff2") format("woff2"), url("~/font/fontello.woff") format("woff"), url("~/font/fontello.ttf") format("truetype"), url("~/font/fontello.svg#fontello") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+[class^=icon-]:before, [class*=" icon-"]:before {
+  font-family: "fontello";
+  font-style: normal;
+  font-weight: normal;
+  speak: never;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: 0.2em;
+  text-align: center;
+  /* opacity: .8; */
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+  /* fix buttons height, for twitter bootstrap */
+  line-height: 1em;
+  /* Animation center compensation - margins should be symmetric */
+  /* remove if not needed */
+  margin-left: 0.2em;
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+  /* Font smoothing. That was taken from TWBS */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-right-open-big:before {
+  content: "\e800";
+}
+
+/* '' */
+.icon-left-open-big:before {
+  content: "\e801";
+}
+
+/* '' */
+.icon-down-open-big:before {
+  content: "\e802";
+}
+
+/* '' */
+.icon-up-open-big:before {
+  content: "\e803";
+}
+
+/* '' */
+.icon-infinity:before {
+  content: "\e804";
+}
+
+/* '' */
+.icon-play:before {
+  content: "\e805";
+}
+
+/* '' */
+.icon-stop:before {
+  content: "\e806";
+}
+
+/* '' */
+.icon-pause:before {
+  content: "\e807";
+}
+
+/* '' */
+.icon-cus_arrow_b_down:before {
+  content: "\e808";
+}
+
+/* '' */
+.icon-cus_arrow_b_left:before {
+  content: "\e809";
+}
+
+/* '' */
+.icon-cus_arrow_b_right:before {
+  content: "\e80a";
+}
+
+/* '' */
+.icon-cus_arrow_b_top:before {
+  content: "\e80b";
+}
+
+/* '' */
+.icon-cus_arrow_bottom:before {
+  content: "\e80c";
+}
+
+/* '' */
+.icon-cus_arrow_left:before {
+  content: "\e80d";
+}
+
+/* '' */
+.icon-cus_arrow_right:before {
+  content: "\e80e";
+}
+
+/* '' */
+.icon-cus_arrow_top:before {
+  content: "\e80f";
+}
+
+/* '' */
+.icon-cus_cancel_circle:before {
+  content: "\e810";
+}
+
+/* '' */
+.icon-cus_cancel:before {
+  content: "\e811";
+}
+
+/* '' */
+.icon-cus_deco:before {
+  content: "\e812";
+}
+
+/* '' */
+.icon-cus_diamond:before {
+  content: "\e813";
+}
+
+/* '' */
+.icon-cus_download:before {
+  content: "\e814";
+}
+
+/* '' */
+.icon-cus_filter:before {
+  content: "\e815";
+}
+
+/* '' */
+.icon-cus_flag:before {
+  content: "\e816";
+}
+
+/* '' */
+.icon-cus_hexagon:before {
+  content: "\e817";
+}
+
+/* '' */
+.icon-cus_rolls:before {
+  content: "\e818";
+}
+
+/* '' */
+.icon-cus_triangle:before {
+  content: "\e819";
+}
+
+/* '' */
+.icon-cus_wave:before {
+  content: "\e81a";
+}
+
+/* '' */
+.icon-cus_wing:before {
+  content: "\e81b";
+}
+
+/* '' */
+.icon-cus_leaf:before {
+  content: "\e81c";
+}
+
+/* '' */
+.icon-cus_line:before {
+  content: "\e81d";
+}
+
+/* '' */
+.icon-cus_rectangle:before {
+  content: "\e81e";
+}
+
+/* '' */
+.icon-cus_plank:before {
+  content: "\e81e";
+}
+
+/* '' */
+.icon-cus_strip:before {
+  content: "\e81e";
+}
+
+/* '' */
+.icon-cus_scale:before {
+  content: "\e81f";
+}
+
+/* '' */
+.icon-cus_acoustic50x50tile:before {
+  content: "\e820";
+}
+
+/* '' */
+.icon-cus_50x50tile:before {
+  content: "\e821";
+}
+
+/* '' */
+.icon-cus_square:before {
+  content: "\e821";
+}
+
+/* '' */
+.icon-search:before {
+  content: "\e822";
+}
+
+/* '' */
+.icon-phone:before {
+  content: "\e824";
+}
+
+/* '' */
+.icon-location:before {
+  content: "\e825";
+}
+
+/* '' */
+.icon-mail-alt:before {
+  content: "\f0e0";
+}
+
+/* '' */
+.icon-fax:before {
+  content: "\f1ac";
+}
+
+/* '' */
+.icon-twitter:before {
+  content: "\f309";
+}
+
+/* '' */
+.icon-facebook:before {
+  content: "\f30c";
+}
+
+/* '' */
+.icon-linkedin:before {
+  content: "\f318";
+}
+
+/* '' *//*# sourceMappingURL=typography.css.map */

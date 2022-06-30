@@ -1,0 +1,48 @@
+$padding: 8px;
+$grid-columns: 12;
+$grid-row-columns: 6;
+$grid-gutter-width: $padding * 3;
+$grid-breakpoints: (
+    mobile: 0,
+    tablet: 768px,
+    medium: 1024px,
+    desktop: 1200px,
+    large: 1920px,
+);
+$container-max-widths: (
+    mobile: 100%,
+    tablet: 100%,
+    medium: 100%,
+    desktop: 100%,
+    large: 100%,
+);
+$container-padding: (
+    desktop: 5vw,
+    mobile: $padding * 3,
+    tablet: $padding * 5,
+);
+$admin-colors: (
+    primary: #379D61,
+    secondary: #669D76,
+    greens: #85CA93,
+    light-green: #D1E373
+);
+$colors: (
+    white: #ffffff,
+    light-gray: #F5F5F5,
+    grays:  #C9C9C9,
+    gray-black: #3F3A39
+    // theme: #e2e1dd,
+    // orange: #dcc399,
+    // brown: #9d8e80,
+    // black: #000000,
+    // line: #707070,
+    // green: #23623E,
+    // success: #A84C1D,
+    // alert: #711D25,
+);
+$header-height: (
+    desktop: 70px,
+    tablet: 75px,
+    mobile: 75px,
+);

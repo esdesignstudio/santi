@@ -1,0 +1,90 @@
+<div
+    class="o-features-carousel"
+    ref="FeaturesCarouselRef"
+>
+        <div class="o-features-carousel__slide">
+            <div class="o-features-carousel__slide-left">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="featuresSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.features.left.url }}"
+                            alt="{{ item.features.left.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+            <div
+                class="o-features-carousel__slide-right"
+                @click="featuresNext();featuresResetTimer()"
+            >
+                <div class="o-features-carousel__slide-right-top -right">
+                    {% for key, item in data.carousel %}
+                        <figure
+                            :class="featuresSetSlideClass({{key}})"
+                        >
+                            <img
+                                src="{{ item.features.top.url }}"
+                                alt="{{ item.features.top.alt }}"
+                            >
+                        </figure>
+                    {% endfor %}
+                </div>
+                <div class="o-features-carousel__slide-right-bottom -right">
+                    {% for key, item in data.carousel %}
+                        <figure
+                            :class="featuresSetSlideClass({{key}})"
+                        >
+                            <img
+                                src="{{ item.features.bottom.url }}"
+                                alt="{{ item.features.bottom.alt }}"
+                            >
+                        </figure>
+                    {% endfor %}
+                </div>
+                <div class="o-features-carousel__slide-right-hover">
+                    <Icon :name="'hover-arrow'" />
+                </div>
+            </div>
+        </div>
+        <div class="o-features-carousel__content">
+            <div class="o-features-carousel__content-wrapper">
+                <h2 class="o-features-carousel__content-wrapper-title -en">
+                    <div class="o-features-carousel__content-wrapper-title-wrapper">
+                        <Transition
+                            name="slide-up"
+                            appear
+                            mode="out-in"
+                        >
+                            <div
+                                :key="featuresCarousel.id"
+                                v-text="featuresCarousel.data[featuresCarousel.id].title"
+                            ></div>
+                        </Transition>
+                    </div>
+                </h2>
+                <div class="o-features-carousel__content-wrapper-text">
+                    <Transition
+                        name="slide-up"
+                        appear
+                        mode="out-in"
+                    >
+                        <p
+                            :key="featuresCarousel.id"
+                            class="-en"
+                            v-text="featuresCarousel.data[featuresCarousel.id].location"
+                        />
+                    </Transition>
+                </div>
+            </div>
+        </div>
+        <div class="o-features-carousel__progress">
+            <div class="o-features-carousel__progress-bar">
+                <div
+                    ref="FeaturesCarouselProgress"
+                    class="o-features-carousel__progress-bar-progress"
+                ></div>
+            </div>
+        </div>
+    </div>

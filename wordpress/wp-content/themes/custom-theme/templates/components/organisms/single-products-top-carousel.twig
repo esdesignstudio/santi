@@ -1,0 +1,27 @@
+<div class="o-single-products-top-carousel">
+    <div class="o-single-products-top-carousel__top">
+        {% for key, item in data.carousel %}
+            <figure
+                class="o-single-products-top-carousel__top-img"
+                :class="singleSetSlideClass({{key}})"
+            >
+                <img src="{{ item.image.url }}" alt="{{ item.image.alt }}">
+            </figure>
+        {% endfor %}
+        <h2 class="o-single-products-top-carousel__top-title -en container">
+            {{ seo.page_title }}
+        </h2>
+    </div>
+    <div class="o-single-products-top-carousel__thumb">
+        <div class="o-single-products-top-carousel__thumb-wrapper swiper-wrapper">
+            {% for thumb in data.carousel %}
+                <figure class="o-single-products-top-carousel__thumb-slide swiper-slide">
+                    <img src="{{ thumb.thumbnail.url }}" alt="{{ thumb.thumbnail.alt }}">
+                </figure>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="o-single-products-top-carousel__thumb-next">
+        <Icon :name="'arrow-right'"></Icon>
+    </div>
+</div>

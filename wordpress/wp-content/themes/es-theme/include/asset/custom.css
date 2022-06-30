@@ -1,0 +1,13 @@
+#wp-admin-bar-comments,/* 留言 */
+#menu-dashboard > ul, #wp-admin-bar-updates,/* 更新 */
+.user-admin-color-wrap, .user-syntax-highlighting-wrap, .user-rich-editing-wrap, .user-comment-shortcuts-wrap, .user-admin-bar-front-wrap, .user-last-name-wrap, .user-url-wrap,/* 使用者相關 */
+#wp-admin-bar-wpseo-menu{
+    display: none !important;
+}
+
+@media (min-width: 782px) and (min-width: 960px){
+	.body.auto-fold .edit-post-layout__content{
+			margin-left: 200px;
+		    margin-top: 30px;
+		}
+}

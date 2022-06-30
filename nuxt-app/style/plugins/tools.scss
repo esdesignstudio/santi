@@ -1,0 +1,31 @@
+.esNotification{
+    position: fixed;
+    z-index: 990;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    .inner{
+        color: white;
+        animation: fadeUp .6s;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        h2 {
+            font-size: .8rem;
+            margin: 0 1rem 0 0;
+            opacity: 0.5;
+        }
+    }
+    &.out{
+        animation: fadeOut .2s both;
+    }
+    &.success {
+        background: map-get($colors, success);
+    }
+    &.alert {
+        background: map-get($colors, alert);
+    }
+
+}

@@ -1,0 +1,118 @@
+<div
+    class="o-index-carousel"
+    data-scroll data-scroll-speed="-4"
+    ref="IndexCarouselRef"
+>
+        <div class="o-index-carousel__slide">
+            <div class="o-index-carousel__slide-left">
+                {% for key, item in data.carousel %}
+                    <figure
+                        :class="indexSetSlideClass({{key}})"
+                    >
+                        <img
+                            src="{{ item.banner.left.url }}"
+                            alt="{{ item.banner.left.alt }}"
+                        >
+                    </figure>
+                {% endfor %}
+            </div>
+            <div
+                class="o-index-carousel__slide-right"
+                @click="indexNext();indexResetTimer()"
+            >
+                <div class="o-index-carousel__slide-right-top -right">
+                    {% for key, item in data.carousel %}
+                        <figure
+                            :class="indexSetSlideClass({{key}})"
+                        >
+                            <img
+                                src="{{ item.banner.top.url }}"
+                                alt="{{ item.banner.top.alt }}"
+                            >
+                        </figure>
+                    {% endfor %}
+                </div>
+                <div class="o-index-carousel__slide-right-bottom -right">
+                    {% for key, item in data.carousel %}
+                            <figure
+                                :class="indexSetSlideClass({{key}})"
+                            >
+                                <img
+                                    src="{{ item.banner.bottom.url }}"
+                                    alt="{{ item.banner.bottom.alt }}"
+                                >
+                            </figure>
+                        {% endfor %}
+                </div>
+                <div class="o-index-carousel__slide-right-hover">
+                    <Icon :name="'hover-arrow'" />
+                </div>
+            </div>
+        </div>
+        <div class="o-index-carousel__content container">
+            <div class="o-index-carousel__content-wrapper">
+                <h2 class="o-index-carousel__content-wrapper-title -en">
+                    <div class="o-index-carousel__content-wrapper-title-wrapper">
+                        <Transition
+                            name="slide-up"
+                            appear
+                            mode="out-in"
+                        >
+                            <div
+                                :key="indexCarousel.id"
+                                v-text="splitTitle(0, indexCarousel.data[indexCarousel.id].content.title)"
+                            ></div>
+                        </Transition>
+                    </div>
+                    <div class="o-index-carousel__content-wrapper-title-wrapper">
+                        <Transition
+                            name="slide-up"
+                            appear
+                            mode="out-in"
+                        >
+                            <div
+                                :key="indexCarousel.id"
+                                v-text="splitTitle(1, indexCarousel.data[indexCarousel.id].content.title)"
+                            ></div>
+                        </Transition>
+                    </div>
+                </h2>
+                <div class="o-index-carousel__content-wrapper-text">
+                    <Transition
+                        name="slide-up"
+                        appear
+                        mode="out-in"
+                    >
+                        <p
+                            :key="indexCarousel.id"
+                            v-text="indexCarousel.data[indexCarousel.id].content.text"
+                        />
+                    </Transition>
+                </div>
+                <div class="o-index-carousel__content-wrapper-btn">
+                    <Transition
+                        name="slide-up"
+                        appear
+                        mode="out-in"
+                    >
+                        <a
+                            :key="indexCarousel.id"
+                            :href="indexCarousel.data[indexCarousel.id].content.url"
+                        >
+                            了解更多
+
+                            <Icon :name="'btn-arrow'" />
+                        </a>
+                    </Transition>
+                </div>
+            </div>
+        </div>
+        <div class="o-index-carousel__progress container">
+            <div class="o-index-carousel__progress-bar">
+                <div
+                    ref="IndexCarouselProgress"
+                    class="o-index-carousel__progress-bar-progress"
+                ></div>
+            </div>
+        </div>
+    </div>
