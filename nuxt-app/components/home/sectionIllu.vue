@@ -88,70 +88,70 @@
         &>div {
             position: absolute;
             &.item1{
-               top: 2%;
+               top: 9.5%;
                left: 22%;
                img{
                     width: 45vw;
                }
             }
             &.item2{
-               top: 11.3%;
+               top: 18%;
                right: 24%;
                img{
                     width: 25vw;
                }
             }
             &.item3{
-               top: 12.5%;
+               top: 20%;
                left: 45%;
                img{
                     width: 7vw;
                }
             }
             &.item4{
-               top: 17%;
+               top: 23.5%;
                left: 30%;
                img{
                     width: 15vw;
                }
             }
             &.item5{
-               top: 24.5%;
+               top: 30.2%;
                left: 48%;
                img{
                     width: 15vw;
                }
             }
             &.item6{
-               top: 34.5%;
+               top: 39%;
                left: 9.2%;
                img{
                     width: 21vw;
                }
             }
             &.item7{
-               top: 39.5%;
+               top: 44%;
                left: 48%;
                img{
                     width: 19vw;
                }
             }
             &.item8{
-               top: 14%;
+               top: 20.5%;
                right: 11.5%;
                img{
                     width: 8vw;
                }
             }
             &.item9{
-               top: 75.5%;
+               top: 77.5%;
                left: 30%;
                img{
                     width: 43vw;
                }
             }
             &.item10{
-               top: 82%;
+               top: 83.5%;
                left: 38.5%;
                img{
                     width: 24vw;
@@ -164,7 +164,7 @@
         &>div {
             position: absolute;
             &.lightball{
-                top: 13%;
+                top: 19.5%;
                 right: 12.5%;
                 img{
                     width: 3vw;
@@ -172,7 +172,7 @@
                 }
             }
             &.light{
-                top: 15%;
+                top: 22%;
                 left: 36.5%;
                 img{
                     width: 9.5vw;
@@ -180,7 +180,7 @@
                 }
             }
             &.bike{
-                top: 6.3%;
+                top: 13.3%;
                 right: 25%;
                 img{
                     width: 6.5vw;
@@ -188,7 +188,7 @@
                 }
             }
             &.bike2{
-                top: 8.5%;
+                top: 15.3%;
                 right: 17%;
                 img{
                     width: 6.5vw;
@@ -196,7 +196,7 @@
                 }
             }
             &.people{
-                top: 19%;
+                top: 25%;
                 right: 23%;
                 img{
                     width: 7vw;
@@ -205,7 +205,7 @@
                 }
             }
             &.buslight{
-                top: 55.2%;
+                top: 59.2%;
                 left: 33%;
                 img{
                     width: 10vw;
@@ -213,14 +213,14 @@
                 }
             }
             &.bus{
-                top: 55%;
+                top: 59%;
                 left: 39%;
                 img{
                     width: 30vw;
                 }
             }
             &.car{
-                top: 45.5%;
+                top: 50.5%;
                 left: 17%;
                 img{
                     width: 16vw;
@@ -228,7 +228,7 @@
                 }
             }
             &.car2{
-                top: 45.5%;
+                top: 50.5%;
                 left: 39%;
                 img{
                     width: 16vw;
@@ -236,14 +236,14 @@
                 }
             }
             &.people2{
-                top: 52.5%;
+                top: 56.5%;
                 left: 22%;
                 img{
                     width: 11vw;
                 }
             }
             &.people3{
-                top: 60.5%;
+                top: 63.5%;
                 right: 17%;
                 img{
                     width: 4.5vw;
