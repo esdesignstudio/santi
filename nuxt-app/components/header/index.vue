@@ -4,14 +4,14 @@
         :class="{'-scrolled': isScrolled}"
     >
         <div class="header__wrapper container">
-            <nav class="header__nav">
+            <nav class="header__nav" v-show="isDesktop">
                 <ul class="header__nav__ul">
                     <li>
                         <NuxtLink to="/">關於我們</NuxtLink>
                     </li>
                     <li>
                         <span>服務內容</span>
-                        <!-- <ul>
+                        <ul>
                             <li>
                                 <NuxtLink to="/">創能</NuxtLink>
                             </li>
@@ -24,7 +24,7 @@
                             <li>
                                 <NuxtLink to="/">售能</NuxtLink>
                             </li>
-                        </ul> -->
+                        </ul>
                     </li>
                     <li>
                         <span>新聞中心</span>
@@ -71,24 +71,72 @@
                     </li>
                 </ul>
             </nav>
+            <!-- 手機版Header -->
+            <nav class="header__nav__tablet" v-show="isTablet">
+                <ul class="info">
+                    <li><img src="assets/icons/footer_logo.png" alt=""></li>
+                    <li><i class="icon-menu"></i></li>
+                </ul>
+            </nav>
         </div>
     </header>
 </template>
-<script setup>
-    const isScrolled = useScrolled(() => {
-        
-    })
+<script>
+    export default {
+        data() {
+            return {
+                isScrolled: false,
+                isDesktop: true,
+                isTablet: false,
+            }
+        },
+        setup() {
+            const isScrolled = useScrolled(() => {
+                // const { data: headData } = useAsyncData('headData', async () =>  {
+                //     const res = await esFetch('/global_options');
+                //     return res.data
+                // })
 
-    // const { data: headData } = useAsyncData('headData', async () =>  {
-    //     const res = await esFetch('/global_options');
-    //     return res.data
-    // })
+                const mobileNavHeight = ref(0)
 
-    const mobileNavHeight = ref(0)
+                onMounted(() => {
+                    
+                })
+            })
+            return {}
+        },
+        mounted() {
+            var that = this;
+            function isScroll() {
+                const w = window.innerWidth
+                let sY = window.scrollY
+                if (sY > 200 && w > 768) {
+                    that.isScrolled = true
+                    // console.log('ture')
+                    // console.log(that.isScrolled)
+                } else {
+                    that.isScrolled = false
+                    // console.log('false')
+                }
+            }
+            function reSize() {
+                const w = window.innerWidth
+                if (w > 768) {
+                    that.isDesktop = true
+                    that.isTablet = false
+                } else {
+                    that.isDesktop = false
+                    that.isTablet = true
+                }
+            }
+            window.addEventListener("scroll", isScroll)
+            window.addEventListener("resize", reSize)
+        },
+        methods: {
+            
+        }
+    };
 
-    onMounted(() => {
-        
-    })
 </script>
 <style lang="scss">
     .header {
@@ -101,14 +149,17 @@
         height: 300px;
         align-items: center;
         background-color: map-get($colors, white);
-        // transition: padding .3s;
+        transition: height .3s;
         // padding: 3rem 0 0;
-        &-scrolled{
+        @include media-breakpoint-down(tablet){
+            height: 75px;
+        }
+        &.-scrolled{
             height: 70px;
             // &__wrapper{
             //     padding: 0 2vw;
             // }
-            &__logo{
+            .header__logo{
                 img{
                     width: 2rem;
                     &.bg{
@@ -126,8 +177,28 @@
             &__ul{
                 display: flex;
                 align-items: center;
+                cursor: pointer;
                 li{
                     margin: 0 .5rem;
+                    ul{
+                        display: none;
+                    }
+                }
+            }
+            &__tablet{
+                width: 100%;
+                .info{
+                    display:flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    li{
+                        i{
+                            color: map-get($colors, gray-black);
+                        }
+                        img{
+                            width: 20vw;
+                        }
+                    }
                 }
             }
         }

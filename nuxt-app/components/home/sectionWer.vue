@@ -19,6 +19,7 @@
         display: flex;
         justify-content: center;
         &__text{
+            padding:  3.1rem;
             width: 40vw;
         }
         img{
@@ -28,7 +29,7 @@
     &__animateitems{
         @include size(100%, 100%);
         &>div {
-            z-index: 150;
+            // z-index: 150;
             position: absolute;
             &.bird{
                 top: 0;
